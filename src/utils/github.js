@@ -97,7 +97,6 @@ async function fetchAllEvents() {
 async function fetchAndFilterEvents() {
     const { starredRepoNames } = await fetchAllStarredRepos();
     let allEvents = await fetchAllEvents();
-
     let filteredEvents = [];
 
     while (filteredEvents.length < eventLimit) {
@@ -113,13 +112,13 @@ async function fetchAndFilterEvents() {
                 return event;
             })
             .slice(0, eventLimit);
-
-        if (filteredEvents.length < eventLimit) {
-            const additionalEvents = await fetchAllEvents();
-            allEvents = additionalEvents.concat(allEvents);
-        } else {
-            break;
-        }
+        break;
+        // if (filteredEvents.length < eventLimit) {
+        //     const additionalEvents = await fetchAllEvents();
+        //     allEvents = additionalEvents.concat(allEvents);
+        // } else {
+        //     break;
+        // }
     }
 
     filteredEvents = filteredEvents.slice(0, eventLimit);
